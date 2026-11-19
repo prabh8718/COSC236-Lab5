@@ -9,6 +9,7 @@ import org.junit.platform.suite.api.Suite;
 				TestAddRemoveMembers.class,
 				TestFindClassString.class,
 				TestBorrowBooks.class,
+				TestEBook.class,
 				TestNotAvailableBook.class,
 				TestRemoveMemberWithBooks.class,
 				TestController.class})
