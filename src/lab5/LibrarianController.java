@@ -2,10 +2,10 @@ package lab5;
 
 public class LibrarianController {
 	
-	Library library; // Library dependency
+	Library library;
 	
 	public LibrarianController( ) {
-		this.library = new Library(); // Constructor injection
+		this.library = new Library(); 
 	}
 	public Library getLibrary() {
 		return this.library;
@@ -17,16 +17,19 @@ public class LibrarianController {
 		library.showMembers();
 	}
 	public void addBook(String title) {
-		library.addBook(new PaperBook(title));  // Book class constructor dependency
+		library.addBook(new PaperBook(title));  
 	}
 	public void addMember(String name) {
-		library.addMember(new Member(name)); // Member class constructor dependency
+		library.addMember(new Member(name)); 
 	}
 	public void removeBook(String title) {
-		library.removeBook(title); // remove 
+		library.removeBook(title); 
 	}
 	public void removeMember(String name) {
 		library.removeMember(name);
+	}
+	public void addAudioBook(String title) {
+	    library.addBook(new AudioBook(title));
 	}
 	public void showMember(String name) {
 		Member member = library.findMemberByName(name);
@@ -51,19 +54,19 @@ public class LibrarianController {
 	}
 	
 	public void borrowBookByMember(String title, String name) {
-		Member member = library.findMemberByName(name); // use library for search
-		Book book = library.findBookByTitle(title);  // use library for search
+		Member member = library.findMemberByName(name); 
+		Book book = library.findBookByTitle(title);  
 		if (book != null && member != null)
-			member.borrowBook(book); // member borrows a book, not library 
+			member.borrowBook(book); 
 		else 	
 			System.out.println("Either book " + title + " or member " + name + " not found.");
 	}
 	
 	public void returnBookByMember(String title, String name) {
-		Member member = library.findMemberByName(name); // use library for search
-		Book book = library.findBookByTitle(title); // use library for search 
+		Member member = library.findMemberByName(name); 
+		Book book = library.findBookByTitle(title); 
 		if (book != null && member != null)
-			member.returnBook(book); // members returns book. 
+			member.returnBook(book); 
 		else  	
 			System.out.println("Either book " + title + " or member " + name + " not found.");
 	}

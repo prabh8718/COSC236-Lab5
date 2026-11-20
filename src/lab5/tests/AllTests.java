@@ -10,6 +10,7 @@ import org.junit.platform.suite.api.Suite;
 				TestFindClassString.class,
 				TestBorrowBooks.class,
 				TestEBook.class,
+				TestAudioBook.class,
 				TestNotAvailableBook.class,
 				TestRemoveMemberWithBooks.class,
 				TestController.class})
