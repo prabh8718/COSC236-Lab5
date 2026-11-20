@@ -1,18 +1,20 @@
 package lab5.tests;
 
 import static org.junit.jupiter.api.Assertions.*;
+
 import org.junit.jupiter.api.Test;
 import lab5.AudioBook;
 import lab5.Book;
 import lab5.Library;
 import lab5.Member;
+import lab5.BorrowingService;
 
 class TestAudioBook {
 
     @Test
     void testAudioBookBorrowAndReturn() {
         Book audioBook = new AudioBook("The Hobbit");
-        Member member = new Member("Alice");
+        Member member = new Member("Alice", BorrowingService.getInstance());
 
         assertTrue(audioBook.getIsAvailable());
         member.borrowBook(audioBook);

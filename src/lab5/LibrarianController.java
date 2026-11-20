@@ -1,12 +1,22 @@
 package lab5;
 
-public class LibrarianController {
 	
-	Library library;
-	
-	public LibrarianController( ) {
-		this.library = new Library(); 
-	}
+	public class LibrarianController {
+
+	private Library library;
+    private BorrowingService borrowingService;
+    private BookFactory paperBookFactory;
+    private BookFactory eBookFactory;
+    private BookFactory audioBookFactory;
+
+    public LibrarianController() {
+        this.library = new Library();
+        this.borrowingService = BorrowingService.getInstance();
+        this.paperBookFactory = new PaperBookFactory();
+        this.eBookFactory = new EBookFactory();
+        this.audioBookFactory = new AudioBookFactory();
+    }
+
 	public Library getLibrary() {
 		return this.library;
 	}
@@ -17,20 +27,33 @@ public class LibrarianController {
 		library.showMembers();
 	}
 	public void addBook(String title) {
-		library.addBook(new PaperBook(title));  
+		library.addBook(paperBookFactory.createBook(title));  
 	}
 	public void addMember(String name) {
-		library.addMember(new Member(name)); 
-	}
+		library.addMember(new Member(name, borrowingService)); 
+    }
+	public void addPaperBook(String title) {
+        library.addBook(paperBookFactory.createBook(title));
+    }
+
+    public void addEBook(String title) {
+        library.addBook(eBookFactory.createBook(title));
+    }
+
+    public void addAudioBook(String title) {
+        library.addBook(audioBookFactory.createBook(title));
+    }
+
+    public void addBook(BookFactory factory, String title) {
+        library.addBook(factory.createBook(title));
+    }
 	public void removeBook(String title) {
 		library.removeBook(title); 
 	}
 	public void removeMember(String name) {
 		library.removeMember(name);
 	}
-	public void addAudioBook(String title) {
-	    library.addBook(new AudioBook(title));
-	}
+	
 	public void showMember(String name) {
 		Member member = library.findMemberByName(name);
 		if (member != null)
@@ -57,13 +80,15 @@ public class LibrarianController {
 		Member member = library.findMemberByName(name); 
 		Book book = library.findBookByTitle(title);  
 		if (book != null && member != null)
-			member.borrowBook(book); 
-		else 	
+                 member.borrowBook(book); 
+        else 	
 			System.out.println("Either book " + title + " or member " + name + " not found.");
 	}
 	
 	public void returnBookByMember(String title, String name) {
+
 		Member member = library.findMemberByName(name); 
+
 		Book book = library.findBookByTitle(title); 
 		if (book != null && member != null)
 			member.returnBook(book); 

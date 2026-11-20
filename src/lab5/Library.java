@@ -6,24 +6,24 @@ import java.util.Iterator;
 
 public class Library {
 	 
-	private ArrayList<Book> catalog = new ArrayList<>(); // Book dependency
-	private ArrayList<Member> members = new ArrayList<>(); // Member dependency
+	private ArrayList<Book> catalog = new ArrayList<>(); 
+	private ArrayList<Member> members = new ArrayList<>(); 
 	
 	public Member findMemberByName(String name) {
 		 for (Member member : members) {
 	           if (member.getName().equals(name)) {
-	               return member; // Return the found member
+	               return member; 
 	           }
 	       }
-	       return null; // Return null if not found
+	       return null;
 	}
 	public Book findBookByTitle (String title) {
 		 for (Book book : catalog) {
 	           if (book.getTitle().equals(title)) {
-	               return book; // Return the found book
+	               return book; 
 	           }
 	       }
-	       return null; // Return null if not found
+	       return null; 
 	}
 	public void addMember(Member member) {
 		members.add(member);
@@ -37,7 +37,7 @@ public class Library {
 	}
 	public void removeMember(Member member) {
 		if(member != null) {
-			member.returnAllBooks(); // return all member's books to the library
+			member.returnAllBooks(); 
 			members.remove(member);
 		}
 	}
@@ -47,7 +47,7 @@ public class Library {
 	}
 	public void removeBook(Book book) {
 		if (book != null)
-			catalog.remove(book); // book stays with the member who has it
+			catalog.remove(book); 
 	}
 	public void showMembers() {
 		Iterator<Member> memberIterator = members.iterator();
@@ -60,7 +60,7 @@ public class Library {
 		Iterator<Book> bookIterator = catalog.iterator();
 	    while(bookIterator.hasNext()) {
 		   	 Book book = bookIterator.next();
-		   	 System.out.println(book); // book.toString()
+		   	 System.out.println(book); 
 	    }
 	}
 	public int booksCount() {

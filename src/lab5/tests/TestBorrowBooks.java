@@ -2,12 +2,13 @@ package lab5.tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import lab5.Member;
 import lab5.PaperBook;
-
+import lab5.BorrowingService;
 class TestBorrowBooks {
 
 	Member member1;
@@ -18,22 +19,22 @@ class TestBorrowBooks {
 	
 	@BeforeEach
 	void setUp() throws Exception {
-		member1 = new Member("Alice"); // flush borrowedBook array 
-		member2 = new Member("Bob");   // flush borrowedBook array 
+		member1 = new Member("Alice",BorrowingService.getInstance()); 
+		member2 = new Member("Bob",BorrowingService.getInstance()); 
 		book1.setIsAvailable(true);
 		book2.setIsAvailable(true);
 	}
 	@Test
 	void borrowBookBook() {
 		
-		// borrow first book
+		
 		assertEquals(member1.borrowedBooksCount(), 0, "Borrowed book should be zero");
 		assertTrue(book1.getIsAvailable(), "Book 1 must be available");
 		member1.borrowBook(book1);
 		assertFalse(book1.getIsAvailable(),"Book 1 must be not available");
 		assertEquals(member1.borrowedBooksCount(),1, "Count of borrowed books must be 1");
 		
-		// borrow second book
+		
 		assertTrue(book2.getIsAvailable(),"Book must be available");
 		member1.borrowBook(book2);
 		assertFalse(book1.getIsAvailable(), "Book should not be available");
@@ -43,7 +44,7 @@ class TestBorrowBooks {
 	@Test
 	void returnBookBook() {
 		
-		// borrow two books
+		
 		assertTrue(book1.getIsAvailable(), "Book 1 should be available");
 		assertTrue(book2.getIsAvailable(), "Book 2 should be available");
 		assertEquals(member1.borrowedBooksCount(), 0,"Member1 should not have any books" );
@@ -53,11 +54,11 @@ class TestBorrowBooks {
 		assertFalse(book1.getIsAvailable(), "Book 1 should not be available");
 		assertFalse(book2.getIsAvailable(), "Book 2 should not be available");
 		
-		// return first book
+		
 		member1.returnBook(book1);
 		assertTrue(book1.getIsAvailable(), "Book should be available after return");
 		assertEquals(member1.borrowedBooksCount(), 1, "Count of books must be 1");
-		// return second book
+		
 		member1.returnBook(book2);
 		assertTrue(book2.getIsAvailable(), "Book should be available after return");
 		assertEquals(member1.borrowedBooksCount(), 0, "Member 1 should have no books");

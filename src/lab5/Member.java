@@ -6,11 +6,17 @@ import java.util.Iterator;
 public class Member {
 
 	private String name;
-	private ArrayList<Book> borrowedBooks; // Book class dependency
+	private ArrayList<Book> borrowedBooks; 
+	private BorrowingService borrowingService;
 	
-	public Member(String name) {
+	public Member(String name, BorrowingService service) {
 		this.name = name;
 		this.borrowedBooks = new ArrayList<>();
+		this.borrowingService = service;
+	}
+
+	public BorrowingService getBorrowingService() {
+		return borrowingService;
 	}
 	public String getName() {
 		return name;
@@ -25,20 +31,17 @@ public class Member {
 		return "Member: " + name;
 	}
 	public void borrowBook(Book book) {
-		if (book != null && book.getIsAvailable() == true) {
-			borrowedBooks.add(book);
-			book.setIsAvailable(false);
-		}
+		BorrowingBookResult borrowingResult = borrowingService.borrowBook(this, book);
+		System.out.println("Success: " + borrowingResult.isSuccess() + ": " + borrowingResult.getBorrowingMessage());
 	}
+
 	public void returnBook(Book book) {
-		if (book != null) {
-			borrowedBooks.remove(book);
-			book.setIsAvailable(true);
-		}
+		BorrowingBookResult borrowingResult = borrowingService.returnBook(this, book);
+		System.out.println("Success: " + borrowingResult.isSuccess() + ": " + borrowingResult.getBorrowingMessage());
 	}
 	public void listBorrowedBooks() {
 		for (Book book : borrowedBooks)
-			System.out.println(book); // book.toString()
+			System.out.println(book); 
 	}
 	public int borrowedBooksCount() {
 		return borrowedBooks.size();
@@ -49,6 +52,6 @@ public class Member {
 		   	 Book book = bookIterator.next();
 		   	 book.setIsAvailable(true);
 	    }
-	    borrowedBooks.clear(); // clear array of borrowed books
+	    borrowedBooks.clear();
 	}
 }
